@@ -1,21 +1,38 @@
 #include <iostream>
+#include <string>
+#include "redmetro.h"
+#include "lineas.h"
+#include "estaciones.h"
 
 using namespace std;
 
 int main()
 {
     int opcion=1;
-    cout<<"---------- Informa2 seguridad ----------"<<endl;
+    cout<<"---------- Metro Red simulator prototype ----------"<<endl;
+    cout<<"Creacion red metro"<<endl;
+    string redName;
+    int howManyLines;
+    cout << "Ingrese el nombre de la red metro: "<<endl;
+    cin.ignore();
+    getline(cin,redName);
+    cout << "Ingrese el numero de lineas que tendra inicialmente la red metro: "<<endl;
+    cin>>howManyLines;
+    redMetro Red(redName, howManyLines);
+
+    //  red.addLine(line);
+
     while(opcion!=0)
     {
-        cout<<"1.Agregar una estacion a una linea"<<endl;
-        cout<<"2.Eliminar una estacion de una linea"<<endl;
-        cout<<"3.Cantidad de lineas que tiene la red Metro"<<endl;
-        cout<<"4.Cantidad de estaciones en una linea dada"<<endl;
-        cout<<"5.Saber si una estacion pertenece a una linea"<<endl;
-        cout<<"6.Agregar una linea a la red Metro"<<endl;
-        cout<<"7.Eliminar una linea de la red Metro"<<endl;
-        cout<<"8.Cantidad de estaciones que tiene una red Metro"<<endl;
+        cout<<"1.Agregar la red Metro"<<endl;
+        cout<<"2.Agregar una linea a la red Metro"<<endl;
+        cout<<"3.Agregar una estacion a una linea"<<endl;
+        cout<<"4.Cantidad de lineas que tiene la red Metro"<<endl;
+        cout<<"5.Cantidad de estaciones en una linea dada"<<endl;
+        cout<<"6.Saber si una estacion pertenece a una linea"<<endl;
+        cout<<"7.Eliminar una estacion de una linea"<<endl;
+        cout<<"8.Eliminar una linea de la red Metro"<<endl;
+        cout<<"9.Cantidad de estaciones que tiene la red Metro"<<endl;
         cout<<"0.Para salir del menu"<<endl;
 
         do{
@@ -34,37 +51,28 @@ int main()
         switch(opcion){
 
         case 1:{
-            cout << "A que linea se le agregara una estacion: ";
 
-            cout << "Cuantas estaciones desea agregar: ";
-
-            cout << "Si el tiempo a la estacion anterior o siguiente es 0, la estacion se crea en una esquina";
-
-            for(){
-                cout << "Ingrese el nombre de la estacion: ";
-
-                cout << "Ingrese el tiempo a la estacion siguiente: ";
-
-                cout << "Ingrese el tiempo a la estacion anterior: ";
-            }
         }
         break;
 
         case 2:{
-            cout << "A que linea pertenece la estacion que desea eliminar: ";
-
-            cout << "Ingrese el nombre de la estacion: ";
 
         }
         break;
 
         case 3:{
 
+            string whichLine;
+            cout << "A que linea se le agregara una estacion: "<<endl;
+            cin.ignore();
+            getline(cin, whichLine);
+
         }
+
         break;
 
         case 4:{
-            cout << "Ingrese el nombre de la linea: ";
+            cout << "Ingrese el nombre de la linea: "<<endl;
 
         }
         break;
@@ -77,7 +85,11 @@ int main()
         break;
 
         case 6:{
-            cout << "Ingrese el nombre de la linea que desea agregar: ";
+
+            cout << "A que linea pertenece la estacion que desea eliminar: ";
+
+            cout << "Ingrese el nombre de la estacion: ";
+
 
         }
         break;
