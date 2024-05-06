@@ -60,6 +60,7 @@ int main()
             cout << "Cuantas estaciones desea agregar inicialmente: "<<endl;
             cin>>sizeLine;
             cout << "Si el tiempo a la estacion anterior o siguiente es 0, la estacion se crea en una esquina"<<endl;
+
             Red.addLine(lineName, sizeLine);
             Red.showRed();
 

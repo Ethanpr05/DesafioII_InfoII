@@ -16,7 +16,8 @@ public:
     void showRed();
     void addLine(string lineName, int sizeLine);
     void setRedsArray(int _capacidadRed);
-    lineas getredsArray(string &_lineName)const;
+    void getredsArray(string &_lineName)const;
+    ~redMetro();
 };
 
 #endif // REDMETRO_H

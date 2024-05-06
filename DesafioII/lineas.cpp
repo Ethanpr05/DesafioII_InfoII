@@ -62,6 +62,11 @@ void lineas::addStation(lineas &line)
 
 }
 
+string lineas::getName() const
+{
+    return lineName;
+}
+
 void lineas::operator=(const lineas &otraLinea)
 {
     // Copiar los atributos
@@ -70,7 +75,7 @@ void lineas::operator=(const lineas &otraLinea)
     capacidadLine = otraLinea.capacidadLine;
 
     // Copiar el arreglo dinámico de estaciones
-    linesArray = new estaciones[capacidadLine];
+    linesArray = new estaciones[sizeLine];
     for (int i = 0; i < sizeLine; i++) {
         linesArray[i] = otraLinea.linesArray[i];
     }

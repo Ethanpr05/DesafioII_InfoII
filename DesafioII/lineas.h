@@ -19,6 +19,7 @@ public:
     void delStation();
     int getlinesArray();
     int howManyStat();
+    string getName()const;
     bool statBelongs();
     void operator=(const lineas& otraLinea);
     void existe(string _lineName);

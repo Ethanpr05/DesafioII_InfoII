@@ -29,13 +29,13 @@ void redMetro::showRed()
 }
 
 void redMetro::setRedsArray(int _capacidadRed){
-
+    delete[] redsArray;
     lineas *redsArray = new lineas[_capacidadRed];
 }
 
 void redMetro::addLine(string lineName, int sizeLine)
 {
-    lineas line(lineName, sizeLine);
+
     if (sizeRed >= capacidadRed) {
         // Si el arreglo está lleno, aumentar su capacidad
         if (capacidadRed == 0 ) {
@@ -50,19 +50,20 @@ void redMetro::addLine(string lineName, int sizeLine)
             nuevoArreglo[i] = redsArray[i];
         }
         // Liberar la memoria del arreglo anterior
-        delete[] redsArray;
+        //delete[] redsArray;
         setRedsArray(capacidadRed);
         //Red.setRedsArray(capacidadRed);
         for (int i = 0; i < sizeRed; i++) {
             redsArray[i] = nuevoArreglo[i];
         }
-        delete[] nuevoArreglo;
+       // delete[] nuevoArreglo;
     }
     // Agregar el nuevo elemento al final del arreglo
-    redsArray[sizeRed++] = line;
+    redsArray[sizeRed] = lineas(lineName, sizeLine);
+    sizeRed++;
 }
 
-lineas redMetro::getredsArray(string &_lineName)const {
+void redMetro::getredsArray(string &_lineName)const {
 
     for (int i=0;i<sizeRed;i++){
         if(redsArray[i].getcompare(_lineName)==true){
@@ -70,4 +71,9 @@ lineas redMetro::getredsArray(string &_lineName)const {
             redsArray->addStation(redsArray[i]);
             break;}
     }
+}
+
+redMetro::~redMetro()
+{
+    delete[]redsArray;
 }
