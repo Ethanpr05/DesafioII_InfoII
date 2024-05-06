@@ -14,7 +14,9 @@ private:
 public:
     redMetro(string _redName,int _sizeRed);
     void showRed();
-    void addLine();
+    void addLine(string lineName, int sizeLine);
+    void setRedsArray(int _capacidadRed);
+    lineas getredsArray(string &_lineName)const;
 };
 
 #endif // REDMETRO_H
