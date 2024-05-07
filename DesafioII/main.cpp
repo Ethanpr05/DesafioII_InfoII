@@ -72,7 +72,7 @@ int main()
             cout << "A que linea se le agregara una estacion: "<<endl;
             cin.ignore();
             getline(cin, whichLine);
-            Red.getredsArray(whichLine);
+            Red.lineFinder(whichLine);
 
         }
         break;

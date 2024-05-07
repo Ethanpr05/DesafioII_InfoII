@@ -49,10 +49,8 @@ void redMetro::addLine(string lineName, int sizeLine)
         for (int i = 0; i < sizeRed; i++) {
             nuevoArreglo[i] = redsArray[i];
         }
-        // Liberar la memoria del arreglo anterior
-        //delete[] redsArray;
         setRedsArray(capacidadRed);
-        //Red.setRedsArray(capacidadRed);
+
         for (int i = 0; i < sizeRed; i++) {
             redsArray[i] = nuevoArreglo[i];
         }
@@ -63,12 +61,12 @@ void redMetro::addLine(string lineName, int sizeLine)
     sizeRed++;
 }
 
-void redMetro::getredsArray(string &_lineName)const {
+void redMetro::lineFinder(string _lineName)const {
 
     for (int i=0;i<sizeRed;i++){
-        if(redsArray[i].getcompare(_lineName)==true){
+        if(redsArray[i].getLineName==_lineName){
             redsArray[i].mostrar();
-            redsArray->addStation(redsArray[i]);
+            redsArray[i].addStation();
             break;}
     }
 }

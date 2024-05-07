@@ -15,17 +15,17 @@ private:
 public:
     lineas(string _lineName, int _sizeLine);
     lineas();
-    void addStation(lineas &line);
+    void addStation();
     void delStation();
     int getlinesArray();
     int howManyStat();
-    string getName()const;
+    string getLineName()const;
     bool statBelongs();
     void operator=(const lineas& otraLinea);
     void existe(string _lineName);
     void mostrar();
     void setSize(int _sizeLine);
-    bool getcompare(string _lineName);
+    void setlinesArray(int _capacidadLine);
     string calcTiempo();
     ~lineas();
 };

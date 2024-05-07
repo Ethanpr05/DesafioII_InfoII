@@ -26,10 +26,15 @@ lineas::lineas()
 
 }
 
-void lineas::addStation(lineas &line)
+void lineas::setlinesArray(int _capacidadLine){
+    delete[] linesArray;
+    estaciones *linesArray = new estaciones[_capacidadLine];
+}
+
+void lineas::addStation()
 {
-    string NameSt;
-    int TimeP, TimeN;
+    string NameSt, NameSp;
+    int TimeP, TimeN, cont=0;
     cout << "Ingrese el nombre de la estacion: "<<endl;
     cin.ignore();
     getline(cin,NameSt);
@@ -38,6 +43,11 @@ void lineas::addStation(lineas &line)
     cin>>TimeN;
     cout << "Ingrese el tiempo a la estacion anterior: "<<endl;
     cin>>TimeP;
+    if(TimeN!=0 && TimeP!=0){
+        cout << "Ingrese el nombre de la estacion que se encontrara antes que la nueva estacion "<<endl;
+        cin.ignore();
+        getline(cin,NameSp);
+    }
 
     if (sizeLine >= capacidadLine) {
         // Si el arreglo está lleno, aumentar su capacidad
@@ -50,19 +60,32 @@ void lineas::addStation(lineas &line)
         estaciones *nuevoArreglo = new estaciones[capacidadLine];
         // Copiar los elementos al nuevo arreglo
         for (int i = 0; i < sizeLine; i++) {
-            nuevoArreglo[i] = linesArray[i];
+            if(TimeP==0){
+                nuevoArreglo[i] = estaciones(NameSt, TimeP, TimeN);
+            }
+            else if(TimeN==0){
+                nuevoArreglo[i] = estaciones(NameSt, TimeP, TimeN);
+            }
+            else if(linesArray[i].getNameStation()==NameSp){
+                nuevoArreglo[i+1] = estaciones(NameSt, TimeP, TimeN);
+                i++;
+            }
+            else
+                nuevoArreglo[i] = linesArray[cont++];
+        }
+        setlinesArray(capacidadLine);
+
+        for (int i = 0; i < sizeLine; i++) {
+            linesArray[i] = nuevoArreglo[i];
         }
 
-        // Liberar la memoria del arreglo anterior
-        delete[] linesArray;
-        linesArray = nuevoArreglo;
     }
     // Agregar el nuevo elemento al final del arreglo
    // linesArray[sizeLine++] = elemento; ESTO DEBE SER UN STRING CON EL NOMBRE
 
 }
 
-string lineas::getName() const
+string lineas::getLineName() const
 {
     return lineName;
 }
@@ -97,16 +120,6 @@ void lineas::mostrar()
 void lineas::setSize(int _sizeLine)
 {
     sizeLine=_sizeLine;
-}
-
-bool lineas::getcompare(string _lineName){
-        cout<<lineName<<endl;
-        if (lineName==_lineName){
-            cout<<lineName<<endl;
-            return true;
-        }
-        else
-            return false;
 }
 
 lineas::~lineas()
