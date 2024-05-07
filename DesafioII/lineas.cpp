@@ -4,7 +4,11 @@
 lineas::lineas(string _lineName, int _sizeLine) {
     lineName = _lineName;
     sizeLine = _sizeLine;
-    linesArray = new estaciones[sizeLine];
+    capacidadLine = sizeLine;
+    while(sizeLine>=capacidadLine){
+        capacidadLine *= 2;
+    }
+    linesArray = new estaciones[capacidadLine];
     string NameSt;
     int TimeP, TimeN;
     for(int i=0;i<sizeLine;i++){
@@ -23,12 +27,10 @@ lineas::lineas(string _lineName, int _sizeLine) {
 
 lineas::lineas()
 {
-
-}
-
-void lineas::setlinesArray(int _capacidadLine){
-    delete[] linesArray;
-    estaciones *linesArray = new estaciones[_capacidadLine];
+    lineName = "";
+    sizeLine = 1;
+    capacidadLine = sizeLine*2;
+    linesArray = nullptr;
 }
 
 void lineas::addStation()
@@ -36,7 +38,7 @@ void lineas::addStation()
     string NameSt, NameSp;
     int TimeP, TimeN, cont=0;
     cout << "Ingrese el nombre de la estacion: "<<endl;
-    cin.ignore();
+    //cin.ignore();
     getline(cin,NameSt);
     cout << "Si el tiempo a la estacion anterior o siguiente es 0, la estacion se crea en una esquina"<<endl;
     cout << "Ingrese el tiempo a la estacion siguiente: "<<endl;
@@ -48,41 +50,55 @@ void lineas::addStation()
         cin.ignore();
         getline(cin,NameSp);
     }
-
+    sizeLine++;
     if (sizeLine >= capacidadLine) {
         // Si el arreglo está lleno, aumentar su capacidad
-        if (capacidadLine == 0) {
+        /*if (capacidadLine == 0) {
             capacidadLine = 1;
-        }
-        else {
-            capacidadLine *= 2;
-        }
+        }*/
+        capacidadLine *= 2;
         estaciones *nuevoArreglo = new estaciones[capacidadLine];
         // Copiar los elementos al nuevo arreglo
-        for (int i = 0; i < sizeLine; i++) {
+        for (int i = 0; i < sizeLine-1; i++) {
             if(TimeP==0){
                 nuevoArreglo[i] = estaciones(NameSt, TimeP, TimeN);
             }
             else if(TimeN==0){
-                nuevoArreglo[i] = estaciones(NameSt, TimeP, TimeN);
+                nuevoArreglo[capacidadLine-1] = estaciones(NameSt, TimeP, TimeN);
             }
             else if(linesArray[i].getNameStation()==NameSp){
                 nuevoArreglo[i+1] = estaciones(NameSt, TimeP, TimeN);
                 i++;
             }
             else
-                nuevoArreglo[i] = linesArray[cont++];
+                nuevoArreglo[i] = linesArray[i];
         }
-        setlinesArray(capacidadLine);
+        delete [] linesArray;
+        linesArray = nuevoArreglo;
 
-        for (int i = 0; i < sizeLine; i++) {
+        /*for (int i = 0; i < sizeLine; i++) {
             linesArray[i] = nuevoArreglo[i];
-        }
+        }*/
 
     }
     // Agregar el nuevo elemento al final del arreglo
-   // linesArray[sizeLine++] = elemento; ESTO DEBE SER UN STRING CON EL NOMBRE
-
+   //linesArray[sizeLine-1] = elemento;
+    else{
+    for (int i = 0; i < sizeLine-1; i++) {
+        if(TimeP==0){
+            linesArray[i] = estaciones(NameSt, TimeP, TimeN);
+        }
+        else if(TimeN==0){
+            linesArray[sizeLine-1] = estaciones(NameSt, TimeP, TimeN);
+        }
+        else if(linesArray[i].getNameStation()==NameSp){
+            linesArray[i+1] = estaciones(NameSt, TimeP, TimeN);
+            i++;
+        }
+        /*else
+            linesArray[i] = linesArray[cont++];*/
+        }
+    }
 }
 
 string lineas::getLineName() const
@@ -98,7 +114,7 @@ void lineas::operator=(const lineas &otraLinea)
     capacidadLine = otraLinea.capacidadLine;
 
     // Copiar el arreglo dinámico de estaciones
-    linesArray = new estaciones[sizeLine];
+    linesArray = new estaciones[capacidadLine];
     for (int i = 0; i < sizeLine; i++) {
         linesArray[i] = otraLinea.linesArray[i];
     }

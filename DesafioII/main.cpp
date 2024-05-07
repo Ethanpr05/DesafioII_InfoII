@@ -14,8 +14,8 @@ int main()
     string redName;
     int howManyLines;
     cout << "Ingrese el nombre de la red metro: "<<endl;
-    cin.ignore();
-    getline(cin,redName);
+    //cin.ignore();
+    getline(cin, redName);
     cout << "Ingrese el numero de lineas que tendra inicialmente la red metro: "<<endl;
     cin>>howManyLines;
     redMetro Red(redName, howManyLines);
@@ -73,7 +73,7 @@ int main()
             cin.ignore();
             getline(cin, whichLine);
             Red.lineFinder(whichLine);
-
+            Red.showRed();
         }
         break;
 
