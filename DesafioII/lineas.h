@@ -20,7 +20,7 @@ public:
     int getlinesArray();
     int howManyStat();
     string getLineName()const;
-    bool statBelongs();
+    bool statBelongs(string nameStat);
     void operator=(const lineas& otraLinea);
     void existe(string _lineName);
     void mostrar();

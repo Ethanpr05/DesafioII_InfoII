@@ -79,22 +79,34 @@ int main()
 
         case 3:{
 
-
+            cout << "La red " << redName << " tiene " << Red.getCantLines() << " lineas." <<endl;
 
         }
 
         break;
 
         case 4:{
+            string whichLine;
             cout << "Ingrese el nombre de la linea: "<<endl;
-
+            getline(cin, whichLine);
+            cin.ignore();
+            cout << "La linea " << whichLine << " tiene " << Red.getLinea(whichLine).howManyStat() << " estaciones" <<endl;
         }
         break;
 
         case 5:{
+            string whichLine, nameStat;
             cout << "Ingrese el nombre de la estacion: ";
-
-            cout << "Ingrese el nombre de la linea: ";
+            getline(cin, nameStat);
+            cin.ignore();
+            cout << "Ingrese el nombre de la linea a la que pertenece la estacion: ";
+            getline(cin, whichLine);
+            cin.ignore();
+            if(Red.getLinea(whichLine).statBelongs(nameStat)==true){
+                cout << "La estacion " << nameStat << " si pertenece a la linea " << whichLine <<endl;
+            }
+            else
+                cout << "La estacion " << nameStat << " no pertenece a la linea " << whichLine <<endl;
         }
         break;
 

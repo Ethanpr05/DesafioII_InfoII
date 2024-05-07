@@ -71,6 +71,18 @@ void redMetro::lineFinder(string _lineName)const {
     }
 }
 
+int redMetro::getCantLines() const{
+    return sizeRed;
+}
+
+lineas redMetro::getLinea(string _lineName) const{
+    for (int i=0;i<sizeRed;i++){
+        if(redsArray[i].getLineName()==_lineName){
+            break;}
+        return redsArray[i];
+    }
+}
+
 redMetro::~redMetro()
 {
     delete[]redsArray;
