@@ -85,9 +85,24 @@ void lineas::addStation()
 
 }
 
+int lineas::howManyStat()
+{
+    return sizeLine;
+}
+
 string lineas::getLineName() const
 {
     return lineName;
+}
+
+bool lineas::statBelongs(string nameStat)
+{
+    for(int i=0; i<sizeLine; i++){
+        if(linesArray[i].getNameStation()==nameStat){
+            return true;
+        }
+    }
+    return false;
 }
 
 void lineas::operator=(const lineas &otraLinea)
