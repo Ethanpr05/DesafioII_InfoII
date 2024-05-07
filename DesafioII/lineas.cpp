@@ -33,72 +33,91 @@ lineas::lineas()
     linesArray = nullptr;
 }
 
-void lineas::addStation()
-{
+void lineas::addStation() {
     string NameSt, NameSp;
-    int TimeP, TimeN, cont=0;
-    cout << "Ingrese el nombre de la estacion: "<<endl;
-    //cin.ignore();
-    getline(cin,NameSt);
-    cout << "Si el tiempo a la estacion anterior o siguiente es 0, la estacion se crea en una esquina"<<endl;
-    cout << "Ingrese el tiempo a la estacion siguiente: "<<endl;
-    cin>>TimeN;
-    cout << "Ingrese el tiempo a la estacion anterior: "<<endl;
-    cin>>TimeP;
-    if(TimeN!=0 && TimeP!=0){
-        cout << "Ingrese el nombre de la estacion que se encontrara antes que la nueva estacion "<<endl;
+    int TimeP, TimeN;
+
+    cout << "Ingrese el nombre de la estacion: ";
+    getline(cin, NameSt);
+
+    cout << "Si el tiempo a la estacion anterior o siguiente es 0, la estacion se crea en una esquina\n";
+    cout << "Ingrese el tiempo a la estacion siguiente: ";
+    cin >> TimeN;
+    cout << "Ingrese el tiempo a la estacion anterior: ";
+    cin >> TimeP;
+
+    if (TimeN != 0 && TimeP != 0) {
+        cout << "Ingrese el nombre de la estacion que se encontrara antes que la nueva estacion: ";
         cin.ignore();
-        getline(cin,NameSp);
+        getline(cin, NameSp);
     }
-    sizeLine++;
+
     if (sizeLine >= capacidadLine) {
         // Si el arreglo está lleno, aumentar su capacidad
-        /*if (capacidadLine == 0) {
-            capacidadLine = 1;
-        }*/
         capacidadLine *= 2;
         estaciones *nuevoArreglo = new estaciones[capacidadLine];
-        // Copiar los elementos al nuevo arreglo
-        for (int i = 0; i < sizeLine-1; i++) {
-            if(TimeP==0){
-                nuevoArreglo[i] = estaciones(NameSt, TimeP, TimeN);
+
+        // Insertar la nueva estación al inicio del arreglo si TimeP es 0
+        if (TimeP == 0) {
+            nuevoArreglo[0] = estaciones(NameSt, TimeP, TimeN);
+            for (int i = 0; i < sizeLine; i++) {
+                nuevoArreglo[i + 1] = linesArray[i];
             }
-            else if(TimeN==0){
-                nuevoArreglo[capacidadLine-1] = estaciones(NameSt, TimeP, TimeN);
-            }
-            else if(linesArray[i].getNameStation()==NameSp){
-                nuevoArreglo[i+1] = estaciones(NameSt, TimeP, TimeN);
-                i++;
-            }
-            else
+        }
+        // Insertar la nueva estación al final del arreglo si TimeN es 0
+        else if (TimeN == 0) {
+            for (int i = 0; i < sizeLine; i++) {
                 nuevoArreglo[i] = linesArray[i];
+            }
+            nuevoArreglo[sizeLine] = estaciones(NameSt, TimeP, TimeN);
+        } else {
+            // Insertar la nueva estación después de NameSp
+            int idx;
+            for (idx = 0; idx < sizeLine; idx++) {
+                nuevoArreglo[idx] = linesArray[idx];
+                if (linesArray[idx].getNameStation() == NameSp) {
+                    nuevoArreglo[idx + 1] = estaciones(NameSt, TimeP, TimeN);
+                    idx++; // Saltar la nueva estación que se ha insertado
+                    break;
+                }
+            }
+            // Copiar las estaciones restantes
+            for (; idx < sizeLine; idx++) {
+                nuevoArreglo[idx + 1] = linesArray[idx];
+            }
         }
-        delete [] linesArray;
+
+        delete[] linesArray;
         linesArray = nuevoArreglo;
-
-        /*for (int i = 0; i < sizeLine; i++) {
-            linesArray[i] = nuevoArreglo[i];
-        }*/
-
+    } else {
+        // Si hay espacio en el arreglo, agregar la nueva estación al final
+        if (TimeP == 0) {
+            for (int i = sizeLine; i > 0; i++) {
+                linesArray[i] = linesArray[i - 1];
+            }
+            linesArray[0] = estaciones(NameSt, TimeP, TimeN);
+        } else if (TimeN == 0) {
+            linesArray[sizeLine] = estaciones(NameSt, TimeP, TimeN);
+        } else {
+            // Insertar la nueva estación después de NameSp
+            int idx;
+            for (idx = 0; idx < sizeLine; ++idx) {
+                if (linesArray[idx].getNameStation() == NameSp) {
+                    for (int j = sizeLine; j > idx; j--) {
+                        linesArray[j] = linesArray[j - 1];
+                    }
+                    linesArray[idx + 1] = estaciones(NameSt, TimeP, TimeN);
+                    break;
+                }
+            }
+            // Si no se encontró NameSp, insertar la nueva estación al final
+            if (idx == sizeLine) {
+                linesArray[sizeLine] = estaciones(NameSt, TimeP, TimeN);
+            }
+        }
     }
-    // Agregar el nuevo elemento al final del arreglo
-   //linesArray[sizeLine-1] = elemento;
-    else{
-    for (int i = 0; i < sizeLine-1; i++) {
-        if(TimeP==0){
-            linesArray[i] = estaciones(NameSt, TimeP, TimeN);
-        }
-        else if(TimeN==0){
-            linesArray[sizeLine-1] = estaciones(NameSt, TimeP, TimeN);
-        }
-        else if(linesArray[i].getNameStation()==NameSp){
-            linesArray[i+1] = estaciones(NameSt, TimeP, TimeN);
-            i++;
-        }
-        /*else
-            linesArray[i] = linesArray[cont++];*/
-        }
-    }
+
+    sizeLine++; // Incrementar el tamaño del arreglo
 }
 
 string lineas::getLineName() const
