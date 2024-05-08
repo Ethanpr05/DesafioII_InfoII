@@ -75,11 +75,11 @@ int redMetro::getCantLines() const{
     return sizeRed;
 }
 
-lineas redMetro::getLinea(string _lineName) const{
+lineas *redMetro::getLinea(string _lineName) const{
     for (int i=0;i<sizeRed;i++){
         if(redsArray[i].getLineName()==_lineName){
+            return &redsArray[i];
             break;}
-        return redsArray[i];
     }
     throw runtime_error("El nombre de línea no se encontró en el arreglo.");
 }

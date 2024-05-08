@@ -172,6 +172,28 @@ void lineas::setSize(int _sizeLine)
     sizeLine=_sizeLine;
 }
 
+void lineas::statFinder(string nameStatOrig, string nameStatprev)
+{
+    int calcTime = 0;
+    for(int i=0; i<sizeLine; i++){
+        if(linesArray[i].getNameStation()==nameStatOrig){
+            for(int j=0; j<sizeLine; j++){
+                if(linesArray[j].getNameStation()==nameStatprev){
+                    if(i>j){
+                        for(int a = j; a<i;a++){
+                            calcTime = linesArray[a].calcTiempo(calcTime);}
+                        }
+                    else{
+                        for(int b = i; b<j;b++){
+                            calcTime = linesArray[b].calcTiempo(calcTime);}
+                    }
+                        cout << calcTime << endl;
+                }
+            }
+        }
+    }
+}
+
 lineas::~lineas()
 {
     delete[] linesArray;

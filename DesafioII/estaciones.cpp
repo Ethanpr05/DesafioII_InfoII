@@ -61,6 +61,14 @@ int estaciones::getTimeNext() const{
     return timeNext;
 }
 
+int estaciones::calcTiempo(int calcTime) const{
+    int timenext = getTimeNext();
+    //int timeprev = getTimePrev();
+    calcTime+=timenext;
+
+    return calcTime;
+}
+
 
 estaciones::~estaciones()
 {
