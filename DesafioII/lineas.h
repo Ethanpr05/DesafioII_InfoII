@@ -16,17 +16,17 @@ public:
     lineas(string _lineName, int _sizeLine);
     lineas();
     void addStation();
-    void delStation();
+    void delStation(const string &nameStation);
     int getlinesArray();
-    int howManyStat();
+    int getSizeLine();
     string getLineName()const;
     bool statBelongs(string nameStat);
-    void operator=(const lineas& otraLinea);
+    void operator=(const lineas &otraLinea);
     void existe(string _lineName);
     void mostrar();
     void setSize(int _sizeLine);
     void setlinesArray(int _capacidadLine);
-    string calcTiempo();
+    void statFinder(string nameStatOrig, string nameStatprev);
     ~lineas();
 };
 

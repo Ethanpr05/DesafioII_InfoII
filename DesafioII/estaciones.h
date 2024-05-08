@@ -26,6 +26,7 @@ public:
     void mostrarSt();
     void setTimeNext(int _timeNext);
     int getTimeNext() const;
+    int calcTiempo(int calcTime) const;
     //void setDeleteStation(string _nameStation);
     ~estaciones();
 

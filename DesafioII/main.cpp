@@ -80,7 +80,6 @@ int main()
         case 3:{
 
             cout << "La red " << redName << " tiene " << Red.getCantLines() << " lineas." <<endl;
-
         }
 
         break;
@@ -88,22 +87,27 @@ int main()
         case 4:{
             string whichLine;
             cout << "Ingrese el nombre de la linea: "<<endl;
-            getline(cin, whichLine);
             cin.ignore();
-
-            cout << "La linea " << whichLine << " tiene " << Red.getLinea(whichLine).howManyStat() << " estaciones" <<endl;
+            getline(cin, whichLine);
+            cout << whichLine << endl;
+            if(Red.lineaExist(whichLine)==true){
+            cout << "La linea " << whichLine << " tiene " << Red.getLinea(whichLine)->getSizeLine() << " estaciones" <<endl;
+            }
+            else{
+                cout << "La linea no se encontro en la red de metro." << endl;
+            }
         }
         break;
 
         case 5:{
             string whichLine, nameStat;
-            cout << "Ingrese el nombre de la estacion: ";
+            cout << "Ingrese el nombre de la estacion: "<<endl;;
+            cin.ignore();
             getline(cin, nameStat);
-            cin.ignore();
-            cout << "Ingrese el nombre de la linea a la que pertenece la estacion: ";
+            cout << "Ingrese el nombre de la linea a la que pertenece la estacion: "<<endl;
             getline(cin, whichLine);
-            cin.ignore();
-            if(Red.getLinea(whichLine).statBelongs(nameStat)==true){
+            cout<<nameStat<<" "<<whichLine<<endl;
+            if(Red.getLinea(whichLine)->statBelongs(nameStat)==true){
                 cout << "La estacion " << nameStat << " si pertenece a la linea " << whichLine <<endl;
             }
             else
@@ -112,23 +116,47 @@ int main()
         break;
 
         case 6:{
-
+            string lineName, nameStation;
             cout << "A que linea pertenece la estacion que desea eliminar: ";
-
-            cout << "Ingrese el nombre de la estacion: ";
-
-
+            cin.ignore();
+            getline(cin, lineName);
+            cout<<lineName<<endl;
+            cout << "Ingrese el nombre de la estacion: "<<endl;
+            //cin.ignore();
+            getline(cin, nameStation);
+            cout<<nameStation<<endl;
+            Red.lineFinder(lineName, nameStation);
         }
         break;
 
         case 7:{
+            string lineName;
             cout << "Ingrese el nombre de la linea que desea eliminar: ";
-
+            cin.ignore();
+            getline(cin, lineName);
+            cout<<lineName<<endl;
+            Red.delLine(lineName);
+            Red.showRed();
         }
         break;
 
         case 8:{
+            cout << "La red " << redName << " tiene " << Red.howManyStat() << " estaciones." <<endl;
+        }
+        break;
 
+        case 9:{
+            string nameStatOrig, nameStatDest, whichLine;
+            cout << "Ingrese el nombre de la estacion de origen: ";
+            cin.ignore();
+            getline(cin, nameStatOrig);
+            cout << "Ingrese el nombre de la estacion de llegada: ";
+            getline(cin, nameStatDest);
+            cout << "Ingrese el nombre de la linea a la que pertenecen las estaciones: ";
+            getline(cin, whichLine);
+            cout << "La linea es: " << whichLine << endl;
+            cout << "El tiempo que se tarda en llegar desde " << nameStatOrig << " a " << nameStatDest << " es: ";
+            Red.getLinea(whichLine)->statFinder(nameStatOrig, nameStatDest);
         }
         break;
 
