@@ -160,6 +160,21 @@ int main()
         }
         break;
 
+        case 9:{
+            string nameStatOrig, nameStatDest, whichLine;
+            cout << "Ingrese el nombre de la estacion de origen: ";
+            cin.ignore();
+            getline(cin, nameStatOrig);
+            cout << "Ingrese el nombre de la estacion de llegada: ";
+            getline(cin, nameStatDest);
+            cout << "Ingrese el nombre de la linea a la que pertenecen las estaciones: ";
+            getline(cin, whichLine);
+            cout << "La linea es: " << whichLine << endl;
+            cout << "El tiempo que se tarda en llegar desde " << nameStatOrig << " a " << nameStatDest << " es: ";
+            Red.getLinea(whichLine)->statFinder(nameStatOrig, nameStatDest);
+        }
+        break;
+
         }
     }
     return 0;
