@@ -28,7 +28,6 @@ public:
     void setTimeNext(int _timeNext);
     int getTimeNext() const;
     int calcTiempo(int calcTime) const;
-
     void convertirTransferencia(string lineName);
     bool getTransferencia();
 

@@ -18,13 +18,19 @@ lineas::lineas(string _lineName, int _sizeLine) {
         cout << "Ingrese el nombre de la estacion: "<<endl;
         cin.ignore();
         getline(cin,NameSt);
-        if (i<sizeLine-1){
-            cout << "Ingrese el tiempo a la estacion siguiente: "<<endl;
-            cin>>TimeN;}
-        else
-            TimeN=0;
-        linesArray[i]=estaciones(NameSt, TimeP, TimeN);
-        cout<<"Listo estacion creada"<<endl;
+        if(statBelongs(NameSt)==false){
+            if (i<sizeLine-1){
+                cout << "Ingrese el tiempo a la estacion siguiente: "<<endl;
+                cin>>TimeN;}
+            else
+                TimeN=0;
+            linesArray[i]=estaciones(NameSt, TimeP, TimeN);
+            cout<<"Listo estacion creada"<<endl;
+        }
+        else{
+            cout << "La estacion " << NameSt << " ya existe en esta linea" << endl;
+            i--;
+        }
     }
 }
 
@@ -42,7 +48,7 @@ void lineas::addStation() {
 
     cout << "Ingrese el nombre de la estacion: ";
     getline(cin, NameSt);
-
+    if (statBelongs(NameSt)==false){
     cout << "Si el tiempo a la estacion anterior o siguiente es 0, la estacion se crea en una esquina\n";
     cout << "Ingrese el tiempo a la estacion siguiente: ";
     cin >> TimeN;
@@ -121,6 +127,9 @@ void lineas::addStation() {
     }
 
     sizeLine++; // Incrementar el tamaño del arreglo
+    }
+    else
+        cout << "Ya existe una estacion con ese nombre" << endl;
 }
 
 void lineas::delStation(const string &nameStation) {

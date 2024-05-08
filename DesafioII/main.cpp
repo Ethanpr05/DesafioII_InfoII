@@ -8,6 +8,7 @@ using namespace std;
 
 int main()
 {
+    string lineName, nameStation;
     int opcion=1;
     cout<<"---------- Metro Red simulator prototype ----------"<<endl;
     cout<<"Creacion red metro"<<endl;
@@ -52,7 +53,6 @@ int main()
         switch(opcion){
 
         case 1:{
-            string lineName;
             int sizeLine;
             cout<<"Ingrese el nombre de la linea: "<<endl;
             cin.ignore();
@@ -60,20 +60,27 @@ int main()
             cout << "Cuantas estaciones desea agregar inicialmente: "<<endl;
             cin>>sizeLine;
             cout << "Si el tiempo a la estacion anterior o siguiente es 0, la estacion se crea en una esquina"<<endl;
-
-            Red.addLine(lineName, sizeLine);
-            Red.showRed();
-
+            if(Red.lineaExist(lineName)==true){
+                cout << "La linea " << lineName << " ya existe" <<endl;
+            }
+            else{
+                Red.addLine(lineName, sizeLine);
+                Red.showRed();
+            }
         }
         break;
 
         case 2:{     
-            string whichLine;
             cout << "A que linea se le agregara una estacion: "<<endl;
             cin.ignore();
-            getline(cin, whichLine);
-            Red.lineFinder(whichLine);
-            Red.showRed();
+            getline(cin, lineName);
+            if(Red.lineaExist(lineName)==true){
+                Red.lineFinder(lineName);
+                Red.showRed();
+            }
+            else{
+                cout << "La linea no se encontro en la red de metro." << endl;
+            }
         }
         break;
 
@@ -85,13 +92,12 @@ int main()
         break;
 
         case 4:{
-            string whichLine;
             cout << "Ingrese el nombre de la linea: "<<endl;
             cin.ignore();
-            getline(cin, whichLine);
-            cout << whichLine << endl;
-            if(Red.lineaExist(whichLine)==true){
-            cout << "La linea " << whichLine << " tiene " << Red.getLinea(whichLine)->getSizeLine() << " estaciones" <<endl;
+            getline(cin, lineName);
+            cout << lineName << endl;
+            if(Red.lineaExist(lineName)==true){
+            cout << "La linea " << lineName << " tiene " << Red.getLinea(lineName)->getSizeLine() << " estaciones" <<endl;
             }
             else{
                 cout << "La linea no se encontro en la red de metro." << endl;
@@ -100,47 +106,58 @@ int main()
         break;
 
         case 5:{
-            string whichLine, nameStat;
             cout << "Ingrese el nombre de la estacion: "<<endl;;
             cin.ignore();
-            getline(cin, nameStat);
+            getline(cin, nameStation);
             cout << "Ingrese el nombre de la linea a la que pertenece la estacion: "<<endl;
-            getline(cin, whichLine);
-            cout<<nameStat<<" "<<whichLine<<endl;
-            if(Red.getLinea(whichLine)->statBelongs(nameStat)==true){
-                cout << "La estacion " << nameStat << " si pertenece a la linea " << whichLine <<endl;
+            getline(cin, lineName);
+            cout<<nameStation<<" "<<lineName<<endl;
+            if(Red.lineaExist(lineName)==true){
+                if(Red.getLinea(lineName)->statBelongs(nameStation)==true){
+                    cout << "La estacion " << nameStation << " si pertenece a la linea " << lineName <<endl;
+                }
+                else
+                    cout << "La estacion " << nameStation << " no pertenece a la linea " << lineName <<endl;
             }
-            else
-                cout << "La estacion " << nameStat << " no pertenece a la linea " << whichLine <<endl;
+            else{
+                cout << "La linea no se encontro en la red de metro." << endl;
+            }
         }
         break;
 
         case 6:{
-            string lineName, nameStation;
             cout << "A que linea pertenece la estacion que desea eliminar: ";
             cin.ignore();
             getline(cin, lineName);
             cout<<lineName<<endl;
             cout << "Ingrese el nombre de la estacion: "<<endl;
-            //cin.ignore();
             getline(cin, nameStation);
             cout<<nameStation<<endl;
-            Red.lineFinder(lineName, nameStation);
+            if(Red.lineaExist(lineName)==true){
+                Red.lineFinder(lineName, nameStation);
+            }
+            else{
+                cout << "La linea no se encontro en la red de metro." << endl;
+            }
         }
         break;
 
         case 7:{
-            string lineName;
             cout << "Ingrese el nombre de la linea que desea eliminar: ";
             cin.ignore();
             getline(cin, lineName);
             cout<<lineName<<endl;
-            if (Red.getLinea(lineName)->tieneTransf()==true){
-                cout << "La linea " << lineName << " no se puede eliminar ya que tiene una estacion de transferencia" <<endl;
+            if(Red.lineaExist(lineName)==true){
+                if (Red.getLinea(lineName)->tieneTransf()==true){
+                    cout << "La linea " << lineName << " no se puede eliminar ya que tiene una estacion de transferencia" <<endl;
+                }
+                else{
+                    Red.delLine(lineName);
+                    Red.showRed();}
             }
             else{
-                Red.delLine(lineName);
-                Red.showRed();}
+                cout << "La linea no se encontro en la red de metro." << endl;
+            }
         }
         break;
 
@@ -150,17 +167,25 @@ int main()
         break;
 
         case 9:{
-            string nameStatOrig, nameStatDest, whichLine;
+            string nameStatOrig, nameStatDest;
             cout << "Ingrese el nombre de la estacion de origen: ";
             cin.ignore();
             getline(cin, nameStatOrig);
             cout << "Ingrese el nombre de la estacion de llegada: ";
             getline(cin, nameStatDest);
             cout << "Ingrese el nombre de la linea a la que pertenecen las estaciones: ";
-            getline(cin, whichLine);
-            cout << "La linea es: " << whichLine << endl;
-            cout << "El tiempo que se tarda en llegar desde " << nameStatOrig << " a " << nameStatDest << " es: ";
-            Red.getLinea(whichLine)->statFinder(nameStatOrig, nameStatDest);
+            getline(cin, lineName);
+            cout << "La linea es: " << lineName << endl;
+            if(Red.lineaExist(lineName)==true){
+                if(Red.getLinea(lineName)->statBelongs(nameStatDest)==true && Red.getLinea(lineName)->statBelongs(nameStatOrig)==true){
+                    cout << "El tiempo que se tarda en llegar desde " << nameStatOrig << " a " << nameStatDest << " es: ";
+                    Red.getLinea(lineName)->statFinder(nameStatOrig, nameStatDest);}
+                else
+                    cout << "Alguna de las estaciones ingresada no existe" << endl;
+            }
+            else{
+                cout << "La linea no se encontro en la red de metro." << endl;
+            }
         }
         break;
 

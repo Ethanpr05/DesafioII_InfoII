@@ -18,9 +18,13 @@ redMetro::redMetro(string _redName, int _sizeRed)
         getline(cin, lineName);
         cout << "Cuantas estaciones desea agregar inicialmente: "<<endl;
         cin>>sizeLine;
-        //cout << "Si el tiempo a la estacion anterior o siguiente es 0, la estacion se crea en una esquina"<<endl;
-        redsArray[i]=lineas (lineName, sizeLine);
-        cout<<"Listo"<<endl;
+        if (lineaExist(lineName)==false){
+            redsArray[i]=lineas (lineName, sizeLine);
+            cout<<"Listo"<<endl;}
+        else{
+            cout << "La linea " << lineName << " ya existe." <<endl;
+            i--;
+        }
 
 
     if (i>0){
@@ -92,7 +96,10 @@ void redMetro::lineFinder(string &_lineName, string &_nameStation)const {
 
     for (int i=0;i<sizeRed;i++){
         if(redsArray[i].getLineName() == _lineName){
-            redsArray[i].delStation(_nameStation);
+            if(redsArray[i].statBelongs(_nameStation)==true){
+                redsArray[i].delStation(_nameStation);}
+            else
+                cout << "La estacion no se encontro en la linea" << endl;
             break;}
     }
 }
