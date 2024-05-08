@@ -18,7 +18,7 @@ public:
    // void setRedsArray(int _capacidadRed);
     void lineFinder(string _lineName)const;
     int getCantLines()const;
-    lineas getLinea(string _lineName) const;
+    lineas *getLinea(string _lineName) const;
     ~redMetro();
 };
 

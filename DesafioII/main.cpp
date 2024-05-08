@@ -88,10 +88,11 @@ int main()
         case 4:{
             string whichLine;
             cout << "Ingrese el nombre de la linea: "<<endl;
-            getline(cin, whichLine);
             cin.ignore();
+            getline(cin, whichLine);
+            cout << whichLine << endl;
+            cout << "La linea " << whichLine << " tiene " << Red.getLinea(whichLine)->howManyStat() << " estaciones" <<endl;
 
-            cout << "La linea " << whichLine << " tiene " << Red.getLinea(whichLine).howManyStat() << " estaciones" <<endl;
         }
         break;
 
@@ -103,12 +104,12 @@ int main()
             cout << "Ingrese el nombre de la linea a la que pertenece la estacion: ";
             getline(cin, whichLine);
             cin.ignore();
-            if(Red.getLinea(whichLine).statBelongs(nameStat)==true){
+        /*    if(Red.getLinea(whichLine).statBelongs(nameStat)==true){
                 cout << "La estacion " << nameStat << " si pertenece a la linea " << whichLine <<endl;
             }
             else
                 cout << "La estacion " << nameStat << " no pertenece a la linea " << whichLine <<endl;
-        }
+        */}
         break;
 
         case 6:{
@@ -129,6 +130,21 @@ int main()
 
         case 8:{
 
+        }
+        break;
+
+        case 9:{
+            string nameStatOrig, nameStatDest, whichLine;
+            cout << "Ingrese el nombre de la estacion de origen: ";
+            cin.ignore();
+            getline(cin, nameStatOrig);
+            cout << "Ingrese el nombre de la estacion de llegada: ";
+            getline(cin, nameStatDest);
+            cout << "Ingrese el nombre de la linea a la que pertenecen las estaciones: ";
+            getline(cin, whichLine);
+            cout << "La linea es: " << whichLine << endl;
+            cout << "El tiempo que se tarda en llegar desde " << nameStatOrig << " a " << nameStatDest << " es: ";
+            Red.getLinea(whichLine)->statFinder(nameStatOrig, nameStatDest);
         }
         break;
 

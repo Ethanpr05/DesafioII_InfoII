@@ -26,7 +26,7 @@ public:
     void mostrar();
     void setSize(int _sizeLine);
     void setlinesArray(int _capacidadLine);
-    string calcTiempo();
+    void statFinder(string nameStatOrig, string nameStatprev);
     ~lineas();
 };
 
