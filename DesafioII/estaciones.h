@@ -12,6 +12,7 @@ private:
     string nameStation;
     int timePrev;
     int timeNext;
+    bool transferencia;
 
 public:
     estaciones();
@@ -27,6 +28,10 @@ public:
     void setTimeNext(int _timeNext);
     int getTimeNext() const;
     int calcTiempo(int calcTime) const;
+
+    void convertirTransferencia(string lineName);
+    bool getTransferencia();
+
     //void setDeleteStation(string _nameStation);
     ~estaciones();
 

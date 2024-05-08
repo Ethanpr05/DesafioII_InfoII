@@ -27,6 +27,8 @@ public:
     void setSize(int _sizeLine);
     void setlinesArray(int _capacidadLine);
     void statFinder(string nameStatOrig, string nameStatprev);
+    void compareStat(string NameSt);
+    bool tieneTransf();
     ~lineas();
 };
 

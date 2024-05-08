@@ -135,8 +135,12 @@ int main()
             cin.ignore();
             getline(cin, lineName);
             cout<<lineName<<endl;
-            Red.delLine(lineName);
-            Red.showRed();
+            if (Red.getLinea(lineName)->tieneTransf()==true){
+                cout << "La linea " << lineName << " no se puede eliminar ya que tiene una estacion de transferencia" <<endl;
+            }
+            else{
+                Red.delLine(lineName);
+                Red.showRed();}
         }
         break;
 

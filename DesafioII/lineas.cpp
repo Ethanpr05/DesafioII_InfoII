@@ -10,16 +10,19 @@ lineas::lineas(string _lineName, int _sizeLine) {
     }
     linesArray = new estaciones[capacidadLine];
     string NameSt;
-    int TimeP, TimeN;
-    for(int i=0;i<sizeLine;i++){
+    int TimeP=0, TimeN, cont=0;
 
+    for(int i=cont;i<sizeLine;i++){
+        if (i!=0){
+            TimeP = TimeN;}
         cout << "Ingrese el nombre de la estacion: "<<endl;
         cin.ignore();
         getline(cin,NameSt);
-        cout << "Ingrese el tiempo a la estacion siguiente: "<<endl;
-        cin>>TimeN;
-        cout << "Ingrese el tiempo a la estacion anterior: "<<endl;
-        cin>>TimeP;
+        if (i<sizeLine-1){
+            cout << "Ingrese el tiempo a la estacion siguiente: "<<endl;
+            cin>>TimeN;}
+        else
+            TimeN=0;
         linesArray[i]=estaciones(NameSt, TimeP, TimeN);
         cout<<"Listo estacion creada"<<endl;
     }
@@ -222,6 +225,25 @@ void lineas::statFinder(string nameStatOrig, string nameStatprev)
             }
         }
     }
+}
+
+void lineas::compareStat(string NameSt)
+{
+    for(int i=0; i<sizeLine; i++){
+        if(linesArray[i].getNameStation()==NameSt){
+            linesArray[i].convertirTransferencia(lineName);
+        }
+    }
+}
+
+bool lineas::tieneTransf()
+{
+    for(int i=0; i<sizeLine; i++){
+        if(linesArray[i].getTransferencia()==true){
+            return true;
+        }
+    }
+    return false;
 }
 
 lineas::~lineas()
