@@ -5,7 +5,11 @@ redMetro::redMetro(string _redName, int _sizeRed)
 {
     redName = _redName;
     sizeRed = _sizeRed;
-    redsArray = new lineas[sizeRed];
+    capacidadRed = sizeRed;
+    while(sizeRed>=capacidadRed){
+        capacidadRed *= 2;
+    }
+    redsArray = new lineas[capacidadRed];
     for (int i=0;i<sizeRed;i++){
         string lineName;
         int sizeLine;
@@ -28,14 +32,9 @@ void redMetro::showRed()
     }
 }
 
-void redMetro::setRedsArray(int _capacidadRed){
-    delete[] redsArray;
-    lineas *redsArray = new lineas[_capacidadRed];
-}
-
 void redMetro::addLine(string lineName, int sizeLine)
 {
-
+    sizeRed++;
     if (sizeRed >= capacidadRed) {
         // Si el arreglo está lleno, aumentar su capacidad
         if (capacidadRed == 0 ) {
@@ -46,26 +45,27 @@ void redMetro::addLine(string lineName, int sizeLine)
         }
         lineas *nuevoArreglo = new lineas[capacidadRed];
         // Copiar los elementos al nuevo arreglo
-        for (int i = 0; i < sizeRed; i++) {
+        for (int i = 0; i < sizeRed-1; i++) {
             nuevoArreglo[i] = redsArray[i];
         }
-        setRedsArray(capacidadRed);
+        delete[] redsArray;
+        redsArray = nuevoArreglo;
 
-        for (int i = 0; i < sizeRed; i++) {
+       /* for (int i = 0; i < sizeRed; i++) {
             redsArray[i] = nuevoArreglo[i];
-        }
-       // delete[] nuevoArreglo;
+        }*/
+        //delete[] nuevoArreglo;
+        //nuevoArreglo=nullptr;
     }
     // Agregar el nuevo elemento al final del arreglo
-    redsArray[sizeRed] = lineas(lineName, sizeLine);
-    sizeRed++;
+    redsArray[sizeRed-1] = lineas(lineName, sizeLine);
+
 }
 
 void redMetro::lineFinder(string _lineName)const {
 
     for (int i=0;i<sizeRed;i++){
-        if(redsArray[i].getLineName==_lineName){
-            redsArray[i].mostrar();
+        if(redsArray[i].getLineName() == _lineName){
             redsArray[i].addStation();
             break;}
     }
@@ -81,6 +81,7 @@ lineas redMetro::getLinea(string _lineName) const{
             break;}
         return redsArray[i];
     }
+    throw runtime_error("El nombre de línea no se encontró en el arreglo.");
 }
 
 redMetro::~redMetro()
