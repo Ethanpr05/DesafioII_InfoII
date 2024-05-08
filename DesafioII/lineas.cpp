@@ -4,7 +4,7 @@
 lineas::lineas(string _lineName, int _sizeLine) {
     lineName = _lineName;
     sizeLine = _sizeLine;
-    capacidadLine = sizeLine;
+    capacidadLine = 2;
     while(sizeLine>=capacidadLine){
         capacidadLine *= 2;
     }
@@ -120,7 +120,37 @@ void lineas::addStation() {
     sizeLine++; // Incrementar el tamaño del arreglo
 }
 
-int lineas::howManyStat()
+void lineas::delStation(const string &nameStation) {
+    for (int i = 0; i < sizeLine; i++) {
+        if (linesArray[i].getNameStation() == nameStation) {
+            // Eliminar la estación encontrada del arreglo
+            for (int j = i; j < sizeLine - 1; j++) {
+                linesArray[j] = linesArray[j + 1];
+            }
+            sizeLine--;
+
+            // Verificar si el tamaño del arreglo es divisible por un múltiplo de 2^n
+            if (sizeLine > 0 && (sizeLine & (sizeLine - 1)) == 0) {
+                // Si el tamaño del arreglo es divisible por un múltiplo de 2^n,
+                // reducir su capacidad a la mitad
+                capacidadLine /= 2;
+                estaciones* nuevoArreglo = new estaciones[capacidadLine];
+                for (int k = 0; k < sizeLine; k++) {
+                    nuevoArreglo[k] = linesArray[k];
+                }
+                delete[] linesArray;
+                linesArray = nuevoArreglo;
+            }
+
+            // Salir del bucle una vez que se haya eliminado la estación
+            return;
+        }
+    }
+    // Si no se encuentra la estación, puedes manejar el error adecuadamente aquí
+    cerr << "La estación no se encontró en la línea.\n";
+}
+
+int lineas::getSizeLine()
 {
     return sizeLine;
 }
