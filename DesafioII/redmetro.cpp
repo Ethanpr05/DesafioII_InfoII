@@ -81,6 +81,7 @@ lineas redMetro::getLinea(string _lineName) const{
             break;}
         return redsArray[i];
     }
+    throw runtime_error("El nombre de línea no se encontró en el arreglo.");
 }
 
 redMetro::~redMetro()

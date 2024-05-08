@@ -90,6 +90,7 @@ int main()
             cout << "Ingrese el nombre de la linea: "<<endl;
             getline(cin, whichLine);
             cin.ignore();
+
             cout << "La linea " << whichLine << " tiene " << Red.getLinea(whichLine).howManyStat() << " estaciones" <<endl;
         }
         break;
