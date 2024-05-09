@@ -15,7 +15,6 @@ public:
     redMetro(string _redName,int _sizeRed);
     void showRed();
     void addLine(string lineName, int sizeLine);
-   // void setRedsArray(int _capacidadRed);
     void lineFinder(string _lineName)const;
     void lineFinder(string &_lineName, string &_nameStation)const;
     int getCantLines()const;
