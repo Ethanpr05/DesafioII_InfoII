@@ -10,17 +10,42 @@ redMetro::redMetro(string _redName, int _sizeRed)
         capacidadRed *= 2;
     }
     redsArray = new lineas[capacidadRed];
+    cin.ignore();
     for (int i=0;i<sizeRed;i++){
         string lineName;
         int sizeLine;
         cout<<"Ingrese el nombre de la linea: "<<endl;
-        cin.ignore();
         getline(cin, lineName);
-        cout << "Cuantas estaciones desea agregar inicialmente: "<<endl;
-        cin>>sizeLine;
-        cout << "Si el tiempo a la estacion anterior o siguiente es 0, la estacion se crea en una esquina"<<endl;
-        redsArray[i]=lineas (lineName, sizeLine);
-        cout<<"Listo"<<endl;
+        do{
+            cout << "Cuantas estaciones desea agregar inicialmente: "<<endl;
+            while (true){
+                cin >> sizeLine;
+                if (cin.fail()){
+                    cout<<"Valor invalido"<<endl;
+                    cin.clear();
+                    while (cin.get() != '\n') {
+                        continue;}}
+                else
+                    break;}
+        } while(sizeLine<0);
+        if (lineaExist(lineName)==false){
+            redsArray[i]=lineas (lineName, sizeLine);
+            cout<<"Listo"<<endl;}
+        else{
+            cout << "La linea " << lineName << " ya existe." <<endl;
+            i--;
+        }
+
+
+    if (i>0){
+        string NameSt;
+        cout << "Ingrese el nombre de la estacion de transferencia" << endl;
+        getline(cin,NameSt);
+        cout << "Nombre " << NameSt << endl;
+        for (int j=0;j<=i;j++){
+        redsArray[j].compareStat(NameSt);}
+    }
+
     }
 }
 
@@ -60,6 +85,12 @@ void redMetro::addLine(string lineName, int sizeLine)
     // Agregar el nuevo elemento al final del arreglo
     redsArray[sizeRed-1] = lineas(lineName, sizeLine);
 
+        string NameSt;
+        cout << "Ingrese el nombre de la estacion de transferencia" << endl;
+        getline(cin,NameSt);
+        cout << "Nombre " << NameSt << endl;
+        for (int j=0;j<sizeRed;j++){
+            redsArray[j].compareStat(NameSt);}
 }
 
 void redMetro::lineFinder(string _lineName)const {
@@ -75,7 +106,10 @@ void redMetro::lineFinder(string &_lineName, string &_nameStation)const {
 
     for (int i=0;i<sizeRed;i++){
         if(redsArray[i].getLineName() == _lineName){
-            redsArray[i].delStation(_nameStation);
+            if(redsArray[i].statBelongs(_nameStation)==true){
+                redsArray[i].delStation(_nameStation);}
+            else
+                cout << "La estacion no se encontro en la linea" << endl;
             break;}
     }
 }

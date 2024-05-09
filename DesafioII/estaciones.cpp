@@ -5,6 +5,7 @@ estaciones::estaciones()
     nameStation = "";
     timePrev = 0;
     timeNext = 0;
+    transferencia = false;
 }
 
 estaciones::estaciones(string _nameStation, int _timePrev, int _timeNext) {
@@ -12,6 +13,7 @@ estaciones::estaciones(string _nameStation, int _timePrev, int _timeNext) {
     this->nameStation= _nameStation;
     this->timePrev=_timePrev;
     this->timeNext=_timeNext;
+    transferencia = false;
 }
 
 void estaciones::operator=(const estaciones &otraEstacion)
@@ -19,6 +21,7 @@ void estaciones::operator=(const estaciones &otraEstacion)
     nameStation = otraEstacion.nameStation;
     timePrev = otraEstacion.timePrev;
     timeNext = otraEstacion.timeNext;
+    transferencia = otraEstacion.transferencia;
 }
 
 /*estaciones(string _nameStation, int _timePrev){
@@ -67,6 +70,17 @@ int estaciones::calcTiempo(int calcTime) const{
     calcTime+=timenext;
 
     return calcTime;
+}
+
+void estaciones::convertirTransferencia(string lineName)
+{
+    transferencia=true;
+    nameStation+= " " + lineName;
+}
+
+bool estaciones::getTransferencia()
+{
+    return transferencia;
 }
 
 
