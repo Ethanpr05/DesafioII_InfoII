@@ -16,8 +16,18 @@ redMetro::redMetro(string _redName, int _sizeRed)
         int sizeLine;
         cout<<"Ingrese el nombre de la linea: "<<endl;
         getline(cin, lineName);
-        cout << "Cuantas estaciones desea agregar inicialmente: "<<endl;
-        cin>>sizeLine;
+        do{
+            cout << "Cuantas estaciones desea agregar inicialmente: "<<endl;
+            while (true){
+                cin >> sizeLine;
+                if (cin.fail()){
+                    cout<<"Valor invalido"<<endl;
+                    cin.clear();
+                    while (cin.get() != '\n') {
+                        continue;}}
+                else
+                    break;}
+        } while(sizeLine<0);
         if (lineaExist(lineName)==false){
             redsArray[i]=lineas (lineName, sizeLine);
             cout<<"Listo"<<endl;}

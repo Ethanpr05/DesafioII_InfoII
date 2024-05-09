@@ -17,8 +17,18 @@ int main()
     cout << "Ingrese el nombre de la red metro: "<<endl;
     //cin.ignore();
     getline(cin, redName);
+    do{
     cout << "Ingrese el numero de lineas que tendra inicialmente la red metro: "<<endl;
-    cin>>howManyLines;
+        while (true){
+            cin >> howManyLines;
+            if (cin.fail()){
+                cout<<"Valor invalido"<<endl;
+                cin.clear();
+                while (cin.get() != '\n') {
+                    continue;}}
+            else
+                break;}
+    } while(howManyLines<0);
     redMetro Red(redName, howManyLines);
     Red.showRed();
 
@@ -57,9 +67,18 @@ int main()
             cout<<"Ingrese el nombre de la linea: "<<endl;
             cin.ignore();
             getline(cin, lineName);
-            cout << "Cuantas estaciones desea agregar inicialmente: "<<endl;
-            cin>>sizeLine;
-            cout << "Si el tiempo a la estacion anterior o siguiente es 0, la estacion se crea en una esquina"<<endl;
+            do{
+                cout << "Cuantas estaciones desea agregar inicialmente: "<<endl;
+                while (true){
+                    cin >> sizeLine;
+                    if (cin.fail()){
+                        cout<<"Valor invalido"<<endl;
+                        cin.clear();
+                        while (cin.get() != '\n') {
+                            continue;}}
+                    else
+                        break;}
+            } while(sizeLine<0);
             if(Red.lineaExist(lineName)==true){
                 cout << "La linea " << lineName << " ya existe" <<endl;
             }
