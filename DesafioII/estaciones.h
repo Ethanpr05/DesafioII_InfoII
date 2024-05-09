@@ -17,8 +17,6 @@ private:
 public:
     estaciones();
     estaciones(string _nameStation, int _timePrev, int _timeNext);
-    /*estaciones(string _nameStation, int _timePrev);
-    estaciones(string _nameStation, int _timeNext);*/
     void operator=(const estaciones& otraEstacion);
     void setnameStation(string _nameStation);
     string getNameStation() const;
@@ -31,7 +29,6 @@ public:
     void convertirTransferencia(string lineName);
     bool getTransferencia();
 
-    //void setDeleteStation(string _nameStation);
     ~estaciones();
 
 };

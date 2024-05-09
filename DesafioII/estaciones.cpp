@@ -24,16 +24,6 @@ void estaciones::operator=(const estaciones &otraEstacion)
     transferencia = otraEstacion.transferencia;
 }
 
-/*estaciones(string _nameStation, int _timePrev){
-    this->nameStation=_nameStation;
-    this->timePrev=_timePrev;
-}
-
-estaciones(string _nameStation, int _timeNext){
-    this->nameStation=_nameStation;
-    this->timeNext=_timeNext;
-}*/
-
 void estaciones::setnameStation(string _nameStation){
     nameStation=_nameStation;
 }
@@ -66,7 +56,6 @@ int estaciones::getTimeNext() const{
 
 int estaciones::calcTiempo(int calcTime) const{
     int timenext = getTimeNext();
-    //int timeprev = getTimePrev();
     calcTime+=timenext;
 
     return calcTime;
@@ -88,9 +77,5 @@ estaciones::~estaciones()
 {
 
 }
-
-/*void estaciones::setDeleteStation(string _nameStation){
-
-}*/
 
 

@@ -18,6 +18,11 @@ lineas::lineas(string _lineName, int _sizeLine) {
         cout << "Ingrese el nombre de la estacion: "<<endl;
         cin.ignore();
         getline(cin,NameSt);
+
+        /*for (int j=0; j<2; j++){
+
+        }*/
+
         if(statBelongs(NameSt)==false){
             if (i<sizeLine-1){
                 do{
@@ -240,10 +245,6 @@ void lineas::operator=(const lineas &otraLinea)
         linesArray[i] = otraLinea.linesArray[i];
     }
 }
-
-/*void lineas::existe(string _lineName){
-
-}*/
 
 void lineas::mostrar()
 {
