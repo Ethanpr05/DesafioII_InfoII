@@ -145,6 +145,7 @@ int main()
         break;
 
         case 6:{
+
             cout << "A que linea pertenece la estacion que desea eliminar: ";
             cin.ignore();
             getline(cin, lineName);
